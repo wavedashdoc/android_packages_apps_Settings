@@ -186,4 +186,8 @@
     <string name="wake_screen_aware_off_dialog_content">To use Reach to check phone, turn on Motion Sense</string>
     <string name="wake_screen_aware_off_dialog_title">Reach to check phone is off</string>
 
+    <!-- Swipe to screenshot -->
+    <string name="swipe_to_screenshot_title">Swipe to screenshot</string>
+    <string name="swipe_to_screenshot_summary">Swipe 3 fingers down the screen to take a screenshot</string>
+
 </resources>
