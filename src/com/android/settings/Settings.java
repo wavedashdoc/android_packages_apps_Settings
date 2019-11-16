@@ -182,4 +182,5 @@ public class Settings extends SettingsActivity {
     public static class QuickSettingsActivity extends SettingsActivity { /* empty */ }
     public static class LockscreenDisplayActivity extends SettingsActivity { /* empty */ }
     public static class StartThemesActivity extends SettingsActivity { /* empty */ }
+    public static class GamingModeActivity extends SettingsActivity { /* empty */ }
 }

@@ -151,6 +151,7 @@ import com.android.settings.wifi.tether.WifiTetherSettings;
 
 import com.pixeldust.settings.PixelDustSettings;
 import com.pixeldust.settings.fragments.QuickSettings;
+import com.pixeldust.settings.fragments.GamingMode;
 
 public class SettingsGateway {
 
@@ -291,6 +292,7 @@ public class SettingsGateway {
             QuickSettings.class.getName(),
             StartThemes.class.getName(),
             DarkModeSettingsFragment.class.getName(),
+            GamingMode.class.getName(),
     };
 
     public static final String[] SETTINGS_FOR_RESTRICTED = {
@@ -331,5 +333,6 @@ public class SettingsGateway {
             UserBackupSettingsActivity.class.getName(),
             Settings.PixelDustSettingsActivity.class.getName(),
             Settings.QuickSettingsActivity.class.getName(),
+            Settings.GamingModeActivity.class.getName(),
     };
 }
