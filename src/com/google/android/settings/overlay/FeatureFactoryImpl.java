@@ -5,12 +5,17 @@ import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 
 import com.android.settings.accounts.AccountFeatureProvider;
-import com.android.settings.search.SearchFeatureProvider;
-import com.android.settings.dashboard.suggestions.SuggestionFeatureProvider;
 import com.android.settings.applications.ApplicationFeatureProvider;
+import com.android.settings.aware.AwareFeatureProvider;
+import com.android.settings.dashboard.suggestions.SuggestionFeatureProvider;
 import com.android.settings.fuelgauge.PowerUsageFeatureProvider;
+import com.android.settings.overlay.DockUpdaterFeatureProvider;
+import com.android.settings.search.SearchFeatureProvider;
+
 import com.google.android.settings.accounts.AccountFeatureProviderGoogleImpl;
 import com.google.android.settings.applications.ApplicationFeatureProviderGoogleImpl;
+import com.google.android.settings.aware.AwareFeatureProviderGoogleImpl;
+import com.google.android.settings.connecteddevice.dock.DockUpdaterFeatureProviderGoogleImpl;
 import com.google.android.settings.dashboard.suggestions.SuggestionFeatureProviderGoogleImpl;
 import com.google.android.settings.search.SearchFeatureProviderGoogleImpl;
 import com.google.android.settings.fuelgauge.PowerUsageFeatureProviderGoogleImpl;
@@ -18,6 +23,8 @@ import com.google.android.settings.fuelgauge.PowerUsageFeatureProviderGoogleImpl
 public final class FeatureFactoryImpl extends com.android.settings.overlay.FeatureFactoryImpl {
     private AccountFeatureProvider mAccountFeatureProvider;
     private ApplicationFeatureProvider mApplicationFeatureProvider;
+    private AwareFeatureProvider mAwareFeatureProvider;
+    private DockUpdaterFeatureProvider mDockUpdaterFeatureProvider;
     private SearchFeatureProvider mSearchFeatureProvider;
     private SuggestionFeatureProvider mSuggestionFeatureProvider;
     private PowerUsageFeatureProvider mPowerUsageProvider;
@@ -64,5 +71,21 @@ public final class FeatureFactoryImpl extends com.android.settings.overlay.Featu
             mPowerUsageProvider = new PowerUsageFeatureProviderGoogleImpl(context.getApplicationContext());
         }
         return mPowerUsageProvider;
+    }
+
+    @Override
+    public DockUpdaterFeatureProvider getDockUpdaterFeatureProvider() {
+        if (mDockUpdaterFeatureProvider == null) {
+            mDockUpdaterFeatureProvider = new DockUpdaterFeatureProviderGoogleImpl();
+        }
+        return mDockUpdaterFeatureProvider;
+    }
+
+    @Override
+    public AwareFeatureProvider getAwareFeatureProvider() {
+        if (mAwareFeatureProvider == null) {
+            mAwareFeatureProvider = new AwareFeatureProviderGoogleImpl();
+        }
+        return mAwareFeatureProvider;
     }
 }
