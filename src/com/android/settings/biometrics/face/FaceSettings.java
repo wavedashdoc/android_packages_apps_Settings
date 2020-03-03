@@ -61,6 +61,7 @@ public class FaceSettings extends DashboardFragment {
     private FaceManager mFaceManager;
     private int mUserId;
     private byte[] mToken;
+    private FaceSettingsAttentionPreferenceController mAttentionController;
     private FaceSettingsRemoveButtonPreferenceController mRemoveController;
     private FaceSettingsEnrollButtonPreferenceController mEnrollController;
     private FaceSettingsLockscreenBypassPreferenceController mLockscreenController;
@@ -129,11 +130,12 @@ public class FaceSettings extends DashboardFragment {
 
         Preference keyguardPref = findPreference(FaceSettingsKeyguardPreferenceController.KEY);
         Preference appPref = findPreference(FaceSettingsAppPreferenceController.KEY);
+        Preference attentionPref = findPreference(FaceSettingsAttentionPreferenceController.KEY);
         Preference confirmPref = findPreference(FaceSettingsConfirmPreferenceController.KEY);
         Preference bypassPref =
                 findPreference(mLockscreenController.getPreferenceKey());
         mTogglePreferences = new ArrayList<>(
-                Arrays.asList(keyguardPref, appPref, confirmPref, bypassPref));
+                Arrays.asList(keyguardPref, appPref, attentionPref, confirmPref, bypassPref));
 
         mRemoveButton = findPreference(FaceSettingsRemoveButtonPreferenceController.KEY);
         mEnrollButton = findPreference(FaceSettingsEnrollButtonPreferenceController.KEY);
@@ -186,6 +188,7 @@ public class FaceSettings extends DashboardFragment {
                 finish();
             }
         } else {
+            mAttentionController.setToken(mToken);
             mEnrollController.setToken(mToken);
         }
 
@@ -210,6 +213,7 @@ public class FaceSettings extends DashboardFragment {
                     mToken = data.getByteArrayExtra(
                             ChooseLockSettingsHelper.EXTRA_KEY_CHALLENGE_TOKEN);
                     if (mToken != null) {
+                        mAttentionController.setToken(mToken);
                         mEnrollController.setToken(mToken);
                     }
                 }
@@ -253,7 +257,9 @@ public class FaceSettings extends DashboardFragment {
         mControllers = buildPreferenceControllers(context, getSettingsLifecycle());
         // There's no great way of doing this right now :/
         for (AbstractPreferenceController controller : mControllers) {
-            if (controller instanceof FaceSettingsRemoveButtonPreferenceController) {
+            if (controller instanceof FaceSettingsAttentionPreferenceController) {
+                mAttentionController = (FaceSettingsAttentionPreferenceController) controller;
+            } else if (controller instanceof FaceSettingsRemoveButtonPreferenceController) {
                 mRemoveController = (FaceSettingsRemoveButtonPreferenceController) controller;
                 mRemoveController.setListener(mRemovalListener);
                 mRemoveController.setActivity((SettingsActivity) getActivity());
@@ -272,6 +278,7 @@ public class FaceSettings extends DashboardFragment {
         controllers.add(new FaceSettingsVideoPreferenceController(context));
         controllers.add(new FaceSettingsKeyguardPreferenceController(context));
         controllers.add(new FaceSettingsAppPreferenceController(context));
+        controllers.add(new FaceSettingsAttentionPreferenceController(context));
         controllers.add(new FaceSettingsRemoveButtonPreferenceController(context));
         controllers.add(new FaceSettingsFooterPreferenceController(context));
         controllers.add(new FaceSettingsConfirmPreferenceController(context));
